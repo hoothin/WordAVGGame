@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--description
+aside:旁白
+	text:旁白内容
+	clearBefore:该旁白出现时之前出现的旁白是否全部清空
+	auto:是否自动出现下一行
+block:脚本块
+	index:脚本标识，"first"为默认起始章节
+	bg:脚本块默认背景
+	jump:结束后跳转的脚本块，无则留空
+words:对话
+	name:主体名字
+	head:主体头像
+	text:对话内容
+	clearOtherHead:若为true，则将当前头像加入舞台后所有其他头像清空，否则淡化其他头像并将其移至舞台另一侧
+branchs:分支
+	text:分支条目
+	target:点选分支后跳转到脚本块的标识，不跳转留空
+	change:分支改变变量，1为增加1点，-1为减少1点
+switch:切换背景
+	bg:背景名称
+	rate:切换速度
+judge:条件判断
+	key:判断对象
+	goal:判断依据
+	target:条件成立后跳转的脚本块
+music:音乐，会一直循环播放
+	name:音乐名，为""停止播放，支持ogg
+sound:音效，只会播放一次
+	name:音效名，为""停止播放，支持ogg
+-->
+<jhshe>
+	<block index="first" bg="nongwu" jump="second">
+		<music name="1.ogg"/>
+		<aside text="你踏上了一座诡异变形的桥，桥身扭曲开裂，你的脚底甚至找不到一块完整的立足地" clearBefore="true" auto="true"/>
+		<aside text="你颤颤巍巍后退一步，希望离开，回头却望见了一张老脸" clearBefore="false" auto="true"/>
+		<words name="孟婆" head="mengpo" text="哎呦这汤不错哦~~哎呦这汤不错哦~~哎呦这汤不错哦~~哎呦这汤不错哦~~哎呦这汤不错哦~~" clearOtherHead="false"/>
+		<words name="我" head="man" text="烫死我了！！！" clearOtherHead="false"/>
+		<words name="我" head="man" text="你的脸哪去了？" clearOtherHead="false"/>
+		<branchs>
+			<branch text="喝！" target="second"/>
+			<branch text="一口气喝光！" target="second" change="mengpoLove,1"/>
+		</branchs>
+	</block>
+	<block index="second" bg="yincao" jump="third">
+		<words name="阎王" head="" text="快快下跪！"/>
+		<switch bg="naiheqiao" rate="0"/>
+		<words name="孟婆" head="mengpo" text="哎呦小哥又回来了啊~~"/>
+		<judge key="mengpoLove" goal="=0" target="first"/>
+		<judge key="mengpoLove" goal=">1" target="first"/>
+	</block>
+</jhshe>
